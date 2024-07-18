@@ -14,9 +14,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { SignupValidation } from "@/lib/validation";
+import Loader from "@/components/shared/Loader";
+import { Link } from "react-router-dom";
 
 const SignupForm = () => {
-  const isLoading = true;
+  const isLoading = false;
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
@@ -43,7 +45,7 @@ const SignupForm = () => {
           Create an account
         </h2>
         <p className="text-gray-500 small-medum md: base-regular mt-2 ">
-          Enter your details to use snapgram
+          Please enter your details to use snapgram.
         </p>
 
         <form
@@ -131,11 +133,22 @@ const SignupForm = () => {
 
           <Button type="submit" className=" shad-button_primary ">
             {isLoading ? (
-              <div className=" flex-center gap-2 ">Loading...</div>
+              <div className=" flex-center gap-2 ">
+                <Loader />
+              </div>
             ) : (
               "Sign up"
             )}
           </Button>
+          <p className=" text-small-regular text-center text-gray-500 small-medum md: base-regular mt-2 ">
+            Already have an account?
+            <Link
+              to="/sign-in"
+              className="text-primary-500 text-small-semibold ml-1"
+            >
+              Log in
+            </Link>
+          </p>
         </form>
       </div>
     </Form>
